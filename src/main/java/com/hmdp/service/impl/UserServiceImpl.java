@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     //     生成随机验证码 6位
         String random= RandomUtil.randomNumbers(6);
     //     保存验证码到session
-        stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY+phone,random,LOGIN_CODE_TTL, TimeUnit.MINUTES);
+        stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY+phone,random,LOGIN_CODE_TTL, TimeUnit.HOURS);
     //    调用发送验证码api
         log.info("发送验证码{}",random);
         return Result.ok(random);
@@ -63,7 +63,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return  Result.fail("手机号错误");
         }
     //     校验验证码
-        String random=stringRedisTemplate.opsForValue().get(LOGIN_USER_KEY+loginForm.getPhone());
+        String random=stringRedisTemplate.opsForValue().get(LOGIN_CODE_KEY+loginForm.getPhone());
+        log.info("验证码:{}",random);
         // 如果验证码不正确
         if (random==null||!random.equals(loginForm.getCode())){
             return  Result.fail("验证码不正确");

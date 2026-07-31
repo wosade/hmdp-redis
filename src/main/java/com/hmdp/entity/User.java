@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("tb_user")
-
 @Builder
 public class User implements Serializable {
 
