@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     //     生成随机验证码 6位
         String random= RandomUtil.randomNumbers(6);
     //     保存验证码到session
-        stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY+phone,random,LOGIN_CODE_TTL, TimeUnit.HOURS);
+        stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY+phone,random,LOGIN_CODE_TTL, TimeUnit.DAYS);
     //    调用发送验证码api
         log.info("发送验证码{}",random);
         return Result.ok(random);
@@ -76,6 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             //不存在就创建user
              user=CreateUserWithPhone(loginForm.getPhone());
         }
+
         String token= UUID.randomUUID().toString();
         //将user转成map对象存储
         UserDTO userDTO= BeanUtil.copyProperties(user,
