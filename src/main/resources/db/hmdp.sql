@@ -13,10 +13,9 @@
 
  Date: 14/03/2022 21:38:11
 */
-
+SET sql_mode = '';
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
 -- ----------------------------
 -- Table structure for tb_blog
 -- ----------------------------

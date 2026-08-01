@@ -18,7 +18,10 @@ import java.util.concurrent.TimeUnit;
 import static com.hmdp.utils.RedisConstants.LOGIN_USER_KEY;
 
 public class RefreshIntercoptor implements HandlerInterceptor {
-    private StringRedisTemplate stringRedisTemplate;
+    private final StringRedisTemplate stringRedisTemplate;
+    public RefreshIntercoptor(StringRedisTemplate stringRedisTemplate){
+        this.stringRedisTemplate=stringRedisTemplate;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
